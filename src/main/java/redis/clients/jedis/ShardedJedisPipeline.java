@@ -340,7 +340,7 @@ public class ShardedJedisPipeline extends Queable {
         return getResponse(BuilderFactory.STRING);
     }
 
-    public Response<Long> zadd(String key, double score, String member) {
+    public Response<Long> zadd(String key, long score, String member) {
         Client c = getClient(key);
         c.zadd(key, score, member);
         results.add(new FutureResult(c));
@@ -361,11 +361,11 @@ public class ShardedJedisPipeline extends Queable {
         return getResponse(BuilderFactory.LONG);
     }
 
-    public Response<Double> zincrby(String key, double score, String member) {
+    public Response<Long> zincrby(String key, long score, String member) {
         Client c = getClient(key);
         c.zincrby(key, score, member);
         results.add(new FutureResult(c));
-        return getResponse(BuilderFactory.DOUBLE);
+        return getResponse(BuilderFactory.LONG);
     }
 
     public Response<Long> zrank(String key, String member) {
@@ -410,18 +410,18 @@ public class ShardedJedisPipeline extends Queable {
         return getResponse(BuilderFactory.LONG);
     }
 
-    public Response<Double> zscore(String key, String member) {
+    public Response<Long> zscore(String key, String member) {
         Client c = getClient(key);
         c.zscore(key, member);
         results.add(new FutureResult(c));
-        return getResponse(BuilderFactory.DOUBLE);
+        return getResponse(BuilderFactory.LONG);
     }
 
-    public Response<Double> sort(String key) {
+    public Response<Long> sort(String key) {
         Client c = getClient(key);
         c.sort(key);
         results.add(new FutureResult(c));
-        return getResponse(BuilderFactory.DOUBLE);
+        return getResponse(BuilderFactory.LONG);
     }
 
     public Response<List<String>> sort(String key, SortingParams sortingParameters) {
@@ -431,21 +431,21 @@ public class ShardedJedisPipeline extends Queable {
         return getResponse(BuilderFactory.STRING_LIST);
     }
 
-    public Response<Long> zcount(String key, double min, double max) {
+    public Response<Long> zcount(String key, long min, long max) {
         Client c = getClient(key);
         c.zcount(key, min, max);
         results.add(new FutureResult(c));
         return getResponse(BuilderFactory.LONG);
     }
 
-    public Response<Set<String>> zrangeByScore(String key, double min, double max) {
+    public Response<Set<String>> zrangeByScore(String key, long min, long max) {
         Client c = getClient(key);
         c.zrangeByScore(key, min, max);
         results.add(new FutureResult(c));
         return getResponse(BuilderFactory.STRING_ZSET);
     }
 
-    public Response<Set<String>> zrangeByScore(String key, double min, double max,
+    public Response<Set<String>> zrangeByScore(String key, long min, long max,
                                                int offset, int count) {
         Client c = getClient(key);
         c.zrangeByScore(key, min, max, offset, count);
@@ -453,14 +453,14 @@ public class ShardedJedisPipeline extends Queable {
         return getResponse(BuilderFactory.STRING_ZSET);
     }
 
-    public Response<Set<Tuple>> zrangeByScoreWithScores(String key, double min, double max) {
+    public Response<Set<Tuple>> zrangeByScoreWithScores(String key, long min, long max) {
         Client c = getClient(key);
         c.zrangeByScoreWithScores(key, min, max);
         results.add(new FutureResult(c));
         return getResponse(BuilderFactory.TUPLE_ZSET);
     }
 
-    public Response<Set<Tuple>> zrangeByScoreWithScores(String key, double min, double max,
+    public Response<Set<Tuple>> zrangeByScoreWithScores(String key, long min, long max,
             int offset, int count) {
         Client c = getClient(key);
         c.zrangeByScoreWithScores(key, min, max, offset, count);
@@ -475,7 +475,7 @@ public class ShardedJedisPipeline extends Queable {
         return getResponse(BuilderFactory.LONG);
     }
 
-    public Response<Long> zremrangeByScore(String key, double start, double end) {
+    public Response<Long> zremrangeByScore(String key, long start, long end) {
         Client c = getClient(key);
         c.zremrangeByScore(key, start, end);
         results.add(new FutureResult(c));

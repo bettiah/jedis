@@ -618,7 +618,7 @@ public class BinaryJedis implements BinaryJedisCommands {
      * <p>
      * Time complexity: O(1). The amortized time complexity is O(1) assuming the
      * appended value is small and the already present value is of any size,
-     * since the dynamic string library used by Redis will double the free space
+     * since the dynamic string library used by Redis will long the free space
      * available on every reallocation.
      * 
      * @param key
@@ -1440,7 +1440,7 @@ public class BinaryJedis implements BinaryJedisCommands {
      * as sole member is crated. If the key exists but does not hold a sorted
      * set value an error is returned.
      * <p>
-     * The score value can be the string representation of a double precision
+     * The score value can be the string representation of a long precision
      * floating point number.
      * <p>
      * Time complexity O(log(N)) with N being the number of elements in the
@@ -1453,7 +1453,7 @@ public class BinaryJedis implements BinaryJedisCommands {
      *         the element was already a member of the sorted set and the score
      *         was updated
      */
-    public Long zadd(final byte[] key, final double score, final byte[] member) {
+    public Long zadd(final byte[] key, final long score, final byte[] member) {
         checkIsInMulti();
         client.zadd(key, score, member);
         return client.getIntegerReply();
@@ -1496,7 +1496,7 @@ public class BinaryJedis implements BinaryJedisCommands {
      * specified member as sole member is crated. If the key exists but does not
      * hold a sorted set value an error is returned.
      * <p>
-     * The score value can be the string representation of a double precision
+     * The score value can be the string representation of a long precision
      * floating point number. It's possible to provide a negative value to
      * perform a decrement.
      * <p>
@@ -1511,12 +1511,12 @@ public class BinaryJedis implements BinaryJedisCommands {
      * @param member
      * @return The new score
      */
-    public Double zincrby(final byte[] key, final double score,
+    public long zincrby(final byte[] key, final long score,
             final byte[] member) {
         checkIsInMulti();
         client.zincrby(key, score, member);
         String newscore = client.getBulkReply();
-        return Double.valueOf(newscore);
+        return Long.valueOf(newscore);
     }
 
     /**
@@ -1621,11 +1621,11 @@ public class BinaryJedis implements BinaryJedisCommands {
      * @param member
      * @return the score
      */
-    public Double zscore(final byte[] key, final byte[] member) {
+    public Long zscore(final byte[] key, final byte[] member) {
         checkIsInMulti();
         client.zscore(key, member);
         final String score = client.getBulkReply();
-        return (score != null ? new Double(score) : null);
+        return (score != null ? new Long(score) : null);
     }
 
     public Transaction multi() {
@@ -1675,7 +1675,7 @@ public class BinaryJedis implements BinaryJedisCommands {
      * Sort a Set or a List.
      * <p>
      * Sort the elements contained in the List, Set, or Sorted Set value at key.
-     * By default sorting is numeric with elements being compared as double
+     * By default sorting is numeric with elements being compared as long
      * precision floating point numbers. This is the simplest form of SORT.
      * 
      * @see #sort(byte[], byte[])
@@ -1889,7 +1889,7 @@ public class BinaryJedis implements BinaryJedisCommands {
      * <p>
      * Sort the elements contained in the List, Set, or Sorted Set value at key
      * and store the result at dstkey. By default sorting is numeric with
-     * elements being compared as double precision floating point numbers. This
+     * elements being compared as long precision floating point numbers. This
      * is the simplest form of SORT.
      * 
      * @see #sort(byte[])
@@ -2055,7 +2055,7 @@ public class BinaryJedis implements BinaryJedisCommands {
         client.rollbackTimeout();
     }
 
-    public Long zcount(final byte[] key, final double min, final double max) {
+    public Long zcount(final byte[] key, final long min, final long max) {
         checkIsInMulti();
         client.zcount(key, min, max);
         return client.getIntegerReply();
@@ -2070,13 +2070,13 @@ public class BinaryJedis implements BinaryJedisCommands {
      * does not involve further computation).
      * <p>
      * Using the optional
-     * {@link #zrangeByScore(byte[], double, double, int, int) LIMIT} it's
+     * {@link #zrangeByScore(byte[], long, long, int, int) LIMIT} it's
      * possible to get only a range of the matching elements in an SQL-alike
      * way. Note that if offset is large the commands needs to traverse the list
      * for offset elements and this adds up to the O(M) figure.
      * <p>
-     * The {@link #zcount(byte[], double, double) ZCOUNT} command is similar to
-     * {@link #zrangeByScore(byte[], double, double) ZRANGEBYSCORE} but instead
+     * The {@link #zcount(byte[], long, long) ZCOUNT} command is similar to
+     * {@link #zrangeByScore(byte[], long, long) ZRANGEBYSCORE} but instead
      * of returning the actual elements in the specified interval, it just
      * returns the number of matching elements.
      * <p>
@@ -2105,11 +2105,11 @@ public class BinaryJedis implements BinaryJedisCommands {
      * (for instance you always ask for the first ten elements with LIMIT) you
      * can consider it O(log(N))
      * 
-     * @see #zrangeByScore(byte[], double, double)
-     * @see #zrangeByScore(byte[], double, double, int, int)
-     * @see #zrangeByScoreWithScores(byte[], double, double)
-     * @see #zrangeByScoreWithScores(byte[], double, double, int, int)
-     * @see #zcount(byte[], double, double)
+     * @see #zrangeByScore(byte[], long, long)
+     * @see #zrangeByScore(byte[], long, long, int, int)
+     * @see #zrangeByScoreWithScores(byte[], long, long)
+     * @see #zrangeByScoreWithScores(byte[], long, long, int, int)
+     * @see #zcount(byte[], long, long)
      * 
      * @param key
      * @param min
@@ -2117,8 +2117,8 @@ public class BinaryJedis implements BinaryJedisCommands {
      * @return Multi bulk reply specifically a list of elements in the specified
      *         score range.
      */
-    public Set<byte[]> zrangeByScore(final byte[] key, final double min,
-            final double max) {
+    public Set<byte[]> zrangeByScore(final byte[] key, final long min,
+            final long max) {
         checkIsInMulti();
         client.zrangeByScore(key, min, max);
         return new LinkedHashSet<byte[]>(client.getBinaryMultiBulkReply());
@@ -2140,13 +2140,13 @@ public class BinaryJedis implements BinaryJedisCommands {
      * does not involve further computation).
      * <p>
      * Using the optional
-     * {@link #zrangeByScore(byte[], double, double, int, int) LIMIT} it's
+     * {@link #zrangeByScore(byte[], long, long, int, int) LIMIT} it's
      * possible to get only a range of the matching elements in an SQL-alike
      * way. Note that if offset is large the commands needs to traverse the list
      * for offset elements and this adds up to the O(M) figure.
      * <p>
-     * The {@link #zcount(byte[], double, double) ZCOUNT} command is similar to
-     * {@link #zrangeByScore(byte[], double, double) ZRANGEBYSCORE} but instead
+     * The {@link #zcount(byte[], long, long) ZCOUNT} command is similar to
+     * {@link #zrangeByScore(byte[], long, long) ZRANGEBYSCORE} but instead
      * of returning the actual elements in the specified interval, it just
      * returns the number of matching elements.
      * <p>
@@ -2175,11 +2175,11 @@ public class BinaryJedis implements BinaryJedisCommands {
      * (for instance you always ask for the first ten elements with LIMIT) you
      * can consider it O(log(N))
      * 
-     * @see #zrangeByScore(byte[], double, double)
-     * @see #zrangeByScore(byte[], double, double, int, int)
-     * @see #zrangeByScoreWithScores(byte[], double, double)
-     * @see #zrangeByScoreWithScores(byte[], double, double, int, int)
-     * @see #zcount(byte[], double, double)
+     * @see #zrangeByScore(byte[], long, long)
+     * @see #zrangeByScore(byte[], long, long, int, int)
+     * @see #zrangeByScoreWithScores(byte[], long, long)
+     * @see #zrangeByScoreWithScores(byte[], long, long, int, int)
+     * @see #zcount(byte[], long, long)
      * 
      * @param key
      * @param min
@@ -2187,8 +2187,8 @@ public class BinaryJedis implements BinaryJedisCommands {
      * @return Multi bulk reply specifically a list of elements in the specified
      *         score range.
      */
-    public Set<byte[]> zrangeByScore(final byte[] key, final double min,
-            final double max, final int offset, final int count) {
+    public Set<byte[]> zrangeByScore(final byte[] key, final long min,
+            final long max, final int offset, final int count) {
         checkIsInMulti();
         client.zrangeByScore(key, min, max, offset, count);
         return new LinkedHashSet<byte[]>(client.getBinaryMultiBulkReply());
@@ -2203,13 +2203,13 @@ public class BinaryJedis implements BinaryJedisCommands {
      * does not involve further computation).
      * <p>
      * Using the optional
-     * {@link #zrangeByScore(byte[], double, double, int, int) LIMIT} it's
+     * {@link #zrangeByScore(byte[], long, long, int, int) LIMIT} it's
      * possible to get only a range of the matching elements in an SQL-alike
      * way. Note that if offset is large the commands needs to traverse the list
      * for offset elements and this adds up to the O(M) figure.
      * <p>
-     * The {@link #zcount(byte[], double, double) ZCOUNT} command is similar to
-     * {@link #zrangeByScore(byte[], double, double) ZRANGEBYSCORE} but instead
+     * The {@link #zcount(byte[], long, long) ZCOUNT} command is similar to
+     * {@link #zrangeByScore(byte[], long, long) ZRANGEBYSCORE} but instead
      * of returning the actual elements in the specified interval, it just
      * returns the number of matching elements.
      * <p>
@@ -2238,11 +2238,11 @@ public class BinaryJedis implements BinaryJedisCommands {
      * (for instance you always ask for the first ten elements with LIMIT) you
      * can consider it O(log(N))
      * 
-     * @see #zrangeByScore(byte[], double, double)
-     * @see #zrangeByScore(byte[], double, double, int, int)
-     * @see #zrangeByScoreWithScores(byte[], double, double)
-     * @see #zrangeByScoreWithScores(byte[], double, double, int, int)
-     * @see #zcount(byte[], double, double)
+     * @see #zrangeByScore(byte[], long, long)
+     * @see #zrangeByScore(byte[], long, long, int, int)
+     * @see #zrangeByScoreWithScores(byte[], long, long)
+     * @see #zrangeByScoreWithScores(byte[], long, long, int, int)
+     * @see #zcount(byte[], long, long)
      * 
      * @param key
      * @param min
@@ -2251,7 +2251,7 @@ public class BinaryJedis implements BinaryJedisCommands {
      *         score range.
      */
     public Set<Tuple> zrangeByScoreWithScores(final byte[] key,
-            final double min, final double max) {
+            final long min, final long max) {
         checkIsInMulti();
         client.zrangeByScoreWithScores(key, min, max);
         Set<Tuple> set = getBinaryTupledSet();
@@ -2267,13 +2267,13 @@ public class BinaryJedis implements BinaryJedisCommands {
      * does not involve further computation).
      * <p>
      * Using the optional
-     * {@link #zrangeByScore(byte[], double, double, int, int) LIMIT} it's
+     * {@link #zrangeByScore(byte[], long, long, int, int) LIMIT} it's
      * possible to get only a range of the matching elements in an SQL-alike
      * way. Note that if offset is large the commands needs to traverse the list
      * for offset elements and this adds up to the O(M) figure.
      * <p>
-     * The {@link #zcount(byte[], double, double) ZCOUNT} command is similar to
-     * {@link #zrangeByScore(byte[], double, double) ZRANGEBYSCORE} but instead
+     * The {@link #zcount(byte[], long, long) ZCOUNT} command is similar to
+     * {@link #zrangeByScore(byte[], long, long) ZRANGEBYSCORE} but instead
      * of returning the actual elements in the specified interval, it just
      * returns the number of matching elements.
      * <p>
@@ -2302,11 +2302,11 @@ public class BinaryJedis implements BinaryJedisCommands {
      * (for instance you always ask for the first ten elements with LIMIT) you
      * can consider it O(log(N))
      * 
-     * @see #zrangeByScore(byte[], double, double)
-     * @see #zrangeByScore(byte[], double, double, int, int)
-     * @see #zrangeByScoreWithScores(byte[], double, double)
-     * @see #zrangeByScoreWithScores(byte[], double, double, int, int)
-     * @see #zcount(byte[], double, double)
+     * @see #zrangeByScore(byte[], long, long)
+     * @see #zrangeByScore(byte[], long, long, int, int)
+     * @see #zrangeByScoreWithScores(byte[], long, long)
+     * @see #zrangeByScoreWithScores(byte[], long, long, int, int)
+     * @see #zcount(byte[], long, long)
      * 
      * @param key
      * @param min
@@ -2315,7 +2315,7 @@ public class BinaryJedis implements BinaryJedisCommands {
      *         score range.
      */
     public Set<Tuple> zrangeByScoreWithScores(final byte[] key,
-            final double min, final double max, final int offset,
+            final long min, final long max, final int offset,
             final int count) {
         checkIsInMulti();
         client.zrangeByScoreWithScores(key, min, max, offset, count);
@@ -2329,14 +2329,14 @@ public class BinaryJedis implements BinaryJedisCommands {
         Set<Tuple> set = new LinkedHashSet<Tuple>();
         Iterator<byte[]> iterator = membersWithScores.iterator();
         while (iterator.hasNext()) {
-            set.add(new Tuple(iterator.next(), Double.valueOf(SafeEncoder
+            set.add(new Tuple(iterator.next(), Long.valueOf(SafeEncoder
                     .encode(iterator.next()))));
         }
         return set;
     }
 
-    public Set<byte[]> zrevrangeByScore(final byte[] key, final double max,
-            final double min) {
+    public Set<byte[]> zrevrangeByScore(final byte[] key, final long max,
+            final long min) {
         checkIsInMulti();
         client.zrevrangeByScore(key, max, min);
         return new LinkedHashSet<byte[]>(client.getBinaryMultiBulkReply());
@@ -2349,15 +2349,15 @@ public class BinaryJedis implements BinaryJedisCommands {
         return new LinkedHashSet<byte[]>(client.getBinaryMultiBulkReply());
     }
 
-    public Set<byte[]> zrevrangeByScore(final byte[] key, final double max,
-            final double min, final int offset, final int count) {
+    public Set<byte[]> zrevrangeByScore(final byte[] key, final long max,
+            final long min, final int offset, final int count) {
         checkIsInMulti();
         client.zrevrangeByScore(key, max, min, offset, count);
         return new LinkedHashSet<byte[]>(client.getBinaryMultiBulkReply());
     }
 
     public Set<Tuple> zrevrangeByScoreWithScores(final byte[] key,
-            final double max, final double min) {
+            final long max, final long min) {
         checkIsInMulti();
         client.zrevrangeByScoreWithScores(key, max, min);
         Set<Tuple> set = getBinaryTupledSet();
@@ -2365,7 +2365,7 @@ public class BinaryJedis implements BinaryJedisCommands {
     }
 
     public Set<Tuple> zrevrangeByScoreWithScores(final byte[] key,
-            final double max, final double min, final int offset,
+            final long max, final long min, final int offset,
             final int count) {
         checkIsInMulti();
         client.zrevrangeByScoreWithScores(key, max, min, offset, count);
@@ -2406,8 +2406,8 @@ public class BinaryJedis implements BinaryJedisCommands {
      * @param end
      * @return Integer reply, specifically the number of elements removed.
      */
-    public Long zremrangeByScore(final byte[] key, final double start,
-            final double end) {
+    public Long zremrangeByScore(final byte[] key, final long start,
+            final long end) {
         checkIsInMulti();
         client.zremrangeByScore(key, start, end);
         return client.getIntegerReply();

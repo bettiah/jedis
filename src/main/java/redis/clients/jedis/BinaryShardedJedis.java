@@ -265,7 +265,7 @@ public class BinaryShardedJedis extends Sharded<Jedis, JedisShardInfo>
         return j.srandmember(key);
     }
 
-    public Long zadd(byte[] key, double score, byte[] member) {
+    public Long zadd(byte[] key, long score, byte[] member) {
         Jedis j = getShard(key);
         return j.zadd(key, score, member);
     }
@@ -280,7 +280,7 @@ public class BinaryShardedJedis extends Sharded<Jedis, JedisShardInfo>
         return j.zrem(key, member);
     }
 
-    public Double zincrby(byte[] key, double score, byte[] member) {
+    public long zincrby(byte[] key, long score, byte[] member) {
         Jedis j = getShard(key);
         return j.zincrby(key, score, member);
     }
@@ -315,7 +315,7 @@ public class BinaryShardedJedis extends Sharded<Jedis, JedisShardInfo>
         return j.zcard(key);
     }
 
-    public Double zscore(byte[] key, byte[] member) {
+    public Long zscore(byte[] key, byte[] member) {
         Jedis j = getShard(key);
         return j.zscore(key, member);
     }
@@ -330,51 +330,51 @@ public class BinaryShardedJedis extends Sharded<Jedis, JedisShardInfo>
         return j.sort(key, sortingParameters);
     }
 
-    public Long zcount(byte[] key, double min, double max) {
+    public Long zcount(byte[] key, long min, long max) {
         Jedis j = getShard(key);
         return j.zcount(key, min, max);
     }
 
-    public Set<byte[]> zrangeByScore(byte[] key, double min, double max) {
+    public Set<byte[]> zrangeByScore(byte[] key, long min, long max) {
         Jedis j = getShard(key);
         return j.zrangeByScore(key, min, max);
     }
 
-    public Set<byte[]> zrangeByScore(byte[] key, double min, double max,
+    public Set<byte[]> zrangeByScore(byte[] key, long min, long max,
             int offset, int count) {
         Jedis j = getShard(key);
         return j.zrangeByScore(key, min, max, offset, count);
     }
 
-    public Set<Tuple> zrangeByScoreWithScores(byte[] key, double min, double max) {
+    public Set<Tuple> zrangeByScoreWithScores(byte[] key, long min, long max) {
         Jedis j = getShard(key);
         return j.zrangeByScoreWithScores(key, min, max);
     }
 
-    public Set<Tuple> zrangeByScoreWithScores(byte[] key, double min,
-            double max, int offset, int count) {
+    public Set<Tuple> zrangeByScoreWithScores(byte[] key, long min,
+            long max, int offset, int count) {
         Jedis j = getShard(key);
         return j.zrangeByScoreWithScores(key, min, max, offset, count);
     }
 
-    public Set<byte[]> zrevrangeByScore(byte[] key, double max, double min) {
+    public Set<byte[]> zrevrangeByScore(byte[] key, long max, long min) {
         Jedis j = getShard(key);
         return j.zrevrangeByScore(key, max, min);
     }
 
-    public Set<byte[]> zrevrangeByScore(byte[] key, double max, double min,
+    public Set<byte[]> zrevrangeByScore(byte[] key, long max, long min,
             int offset, int count) {
         Jedis j = getShard(key);
         return j.zrevrangeByScore(key, max, min, offset, count);
     }
 
-    public Set<Tuple> zrevrangeByScoreWithScores(byte[] key, double max, double min) {
+    public Set<Tuple> zrevrangeByScoreWithScores(byte[] key, long max, long min) {
         Jedis j = getShard(key);
         return j.zrevrangeByScoreWithScores(key, max, min);
     }
 
-    public Set<Tuple> zrevrangeByScoreWithScores(byte[] key, double max,
-            double min, int offset, int count) {
+    public Set<Tuple> zrevrangeByScoreWithScores(byte[] key, long max,
+            long min, int offset, int count) {
         Jedis j = getShard(key);
         return j.zrevrangeByScoreWithScores(key, max, min, offset, count);
     }
@@ -384,7 +384,7 @@ public class BinaryShardedJedis extends Sharded<Jedis, JedisShardInfo>
         return j.zremrangeByRank(key, start, end);
     }
 
-    public Long zremrangeByScore(byte[] key, double start, double end) {
+    public Long zremrangeByScore(byte[] key, long start, long end) {
         Jedis j = getShard(key);
         return j.zremrangeByScore(key, start, end);
     }

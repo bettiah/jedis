@@ -65,7 +65,7 @@ public class PipeliningTest extends Assert {
         Response<Set<String>> zset = p.zrange("zset", 0, -1);
         Response<String> set = p.spop("set");
         Response<Boolean> blist = p.exists("list");
-        Response<Double> zincrby = p.zincrby("zset", 1, "foo");
+        Response<Long> zincrby = p.zincrby("zset", 1, "foo");
         Response<Long> zcard = p.zcard("zset");
         p.lpush("list", "bar");
         Response<List<String>> lrange = p.lrange("list", 0, -1);
@@ -82,7 +82,7 @@ public class PipeliningTest extends Assert {
         assertEquals("foo", zset.get().iterator().next());
         assertEquals("foo", set.get());
         assertEquals(false, blist.get());
-        assertEquals(new Double(2), zincrby.get());
+        assertEquals(new Long(2), zincrby.get());
         assertEquals(new Long(1), zcard.get());
         assertEquals(1, lrange.get().size());
         assertNotNull(hgetAll.get().get("foo"));

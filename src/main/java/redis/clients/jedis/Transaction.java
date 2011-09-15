@@ -403,7 +403,7 @@ public class Transaction extends BinaryTransaction {
         return getResponse(BuilderFactory.STRING);
     }
 
-    public Response<Long> zadd(String key, double score, String member) {
+    public Response<Long> zadd(String key, long score, String member) {
         client.zadd(key, score, member);
         return getResponse(BuilderFactory.LONG);
     }
@@ -413,14 +413,14 @@ public class Transaction extends BinaryTransaction {
         return getResponse(BuilderFactory.LONG);
     }
 
-    public Response<Long> zcount(String key, double min, double max) {
+    public Response<Long> zcount(String key, long min, long max) {
         client.zcount(key, min, max);
         return getResponse(BuilderFactory.LONG);
     }
 
-    public Response<Double> zincrby(String key, double score, String member) {
+    public Response<Long> zincrby(String key, long score, String member) {
         client.zincrby(key, score, member);
-        return getResponse(BuilderFactory.DOUBLE);
+        return getResponse(BuilderFactory.LONG);
     }
 
     public Response<Long> zinterstore(String dstkey, String... sets) {
@@ -439,8 +439,8 @@ public class Transaction extends BinaryTransaction {
         return getResponse(BuilderFactory.STRING_ZSET);
     }
 
-    public Response<Set<String>> zrangeByScore(String key, double min,
-            double max) {
+    public Response<Set<String>> zrangeByScore(String key, long min,
+            long max) {
         client.zrangeByScore(key, min, max);
         return getResponse(BuilderFactory.STRING_ZSET);
     }
@@ -451,20 +451,20 @@ public class Transaction extends BinaryTransaction {
         return getResponse(BuilderFactory.STRING_ZSET);
     }
 
-    public Response<Set<String>> zrangeByScore(String key, double min,
-            double max, int offset, int count) {
+    public Response<Set<String>> zrangeByScore(String key, long min,
+            long max, int offset, int count) {
         client.zrangeByScore(key, min, max, offset, count);
         return getResponse(BuilderFactory.STRING_ZSET);
     }
 
-    public Response<Set<Tuple>> zrangeByScoreWithScores(String key, double min,
-            double max) {
+    public Response<Set<Tuple>> zrangeByScoreWithScores(String key, long min,
+            long max) {
         client.zrangeByScoreWithScores(key, min, max);
         return getResponse(BuilderFactory.TUPLE_ZSET);
     }
 
-    public Response<Set<Tuple>> zrangeByScoreWithScores(String key, double min,
-            double max, int offset, int count) {
+    public Response<Set<Tuple>> zrangeByScoreWithScores(String key, long min,
+            long max, int offset, int count) {
         client.zrangeByScoreWithScores(key, min, max, offset, count);
         return getResponse(BuilderFactory.TUPLE_ZSET);
     }
@@ -489,7 +489,7 @@ public class Transaction extends BinaryTransaction {
         return getResponse(BuilderFactory.LONG);
     }
 
-    public Response<Long> zremrangeByScore(String key, double start, double end) {
+    public Response<Long> zremrangeByScore(String key, long start, long end) {
         client.zremrangeByScore(key, start, end);
         return getResponse(BuilderFactory.LONG);
     }
@@ -510,9 +510,9 @@ public class Transaction extends BinaryTransaction {
         return getResponse(BuilderFactory.LONG);
     }
 
-    public Response<Double> zscore(String key, String member) {
+    public Response<Long> zscore(String key, String member) {
         client.zscore(key, member);
-        return getResponse(BuilderFactory.DOUBLE);
+        return getResponse(BuilderFactory.LONG);
     }
 
     public Response<Long> zunionstore(String dstkey, String... sets) {

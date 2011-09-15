@@ -11,7 +11,7 @@ public class BuilderFactory {
         }
 
         public String toString() {
-            return "double";
+            return "long";
         }
     };
     public static final Builder<Boolean> BOOLEAN = new Builder<Boolean>() {
@@ -186,7 +186,7 @@ public class BuilderFactory {
             Iterator<byte[]> iterator = l.iterator();
             while (iterator.hasNext()) {
                 result.add(new Tuple(SafeEncoder.encode(iterator.next()),
-                        Double.valueOf(SafeEncoder.encode(iterator.next()))));
+                        Long.valueOf(SafeEncoder.encode(iterator.next()))));
             }
             return result;
         }
@@ -207,7 +207,7 @@ public class BuilderFactory {
             final Set<Tuple> result = new LinkedHashSet<Tuple>(l.size());
             Iterator<byte[]> iterator = l.iterator();
             while (iterator.hasNext()) {
-                result.add(new Tuple(iterator.next(), Double
+                result.add(new Tuple(iterator.next(), Long
                         .valueOf(SafeEncoder.encode(iterator.next()))));
             }
 

@@ -315,7 +315,7 @@ public class Client extends BinaryClient implements Commands {
         srandmember(SafeEncoder.encode(key));
     }
 
-    public void zadd(final String key, final double score, final String member) {
+    public void zadd(final String key, final long score, final String member) {
         zadd(SafeEncoder.encode(key), score, SafeEncoder.encode(member));
     }
 
@@ -327,7 +327,7 @@ public class Client extends BinaryClient implements Commands {
         zrem(SafeEncoder.encode(key), SafeEncoder.encode(member));
     }
 
-    public void zincrby(final String key, final double score,
+    public void zincrby(final String key, final long score,
             final String member) {
         zincrby(SafeEncoder.encode(key), score, SafeEncoder.encode(member));
     }
@@ -404,12 +404,12 @@ public class Client extends BinaryClient implements Commands {
         brpop(bargs);
     }
 
-    public void zcount(final String key, final double min, final double max) {
+    public void zcount(final String key, final long min, final long max) {
         zcount(SafeEncoder.encode(key), min, max);
     }
 
-    public void zrangeByScore(final String key, final double min,
-            final double max) {
+    public void zrangeByScore(final String key, final long min,
+            final long max) {
         zrangeByScore(SafeEncoder.encode(key), min, max);
     }
 
@@ -419,24 +419,24 @@ public class Client extends BinaryClient implements Commands {
                 SafeEncoder.encode(max));
     }
 
-    public void zrangeByScore(final String key, final double min,
-            final double max, final int offset, int count) {
+    public void zrangeByScore(final String key, final long min,
+            final long max, final int offset, int count) {
         zrangeByScore(SafeEncoder.encode(key), min, max, offset, count);
     }
 
-    public void zrangeByScoreWithScores(final String key, final double min,
-            final double max) {
+    public void zrangeByScoreWithScores(final String key, final long min,
+            final long max) {
         zrangeByScoreWithScores(SafeEncoder.encode(key), min, max);
     }
 
-    public void zrangeByScoreWithScores(final String key, final double min,
-            final double max, final int offset, final int count) {
+    public void zrangeByScoreWithScores(final String key, final long min,
+            final long max, final int offset, final int count) {
         zrangeByScoreWithScores(SafeEncoder.encode(key), min, max, offset,
                 count);
     }
 
-    public void zrevrangeByScore(final String key, final double max,
-            final double min) {
+    public void zrevrangeByScore(final String key, final long max,
+            final long min) {
         zrevrangeByScore(SafeEncoder.encode(key), max, min);
     }
 
@@ -446,18 +446,18 @@ public class Client extends BinaryClient implements Commands {
                 SafeEncoder.encode(min));
     }
 
-    public void zrevrangeByScore(final String key, final double max,
-            final double min, final int offset, int count) {
+    public void zrevrangeByScore(final String key, final long max,
+            final long min, final int offset, int count) {
         zrevrangeByScore(SafeEncoder.encode(key), max, min, offset, count);
     }
 
-    public void zrevrangeByScoreWithScores(final String key, final double max,
-            final double min) {
+    public void zrevrangeByScoreWithScores(final String key, final long max,
+            final long min) {
         zrevrangeByScoreWithScores(SafeEncoder.encode(key), max, min);
     }
 
-    public void zrevrangeByScoreWithScores(final String key, final double max,
-            final double min, final int offset, final int count) {
+    public void zrevrangeByScoreWithScores(final String key, final long max,
+            final long min, final int offset, final int count) {
         zrevrangeByScoreWithScores(SafeEncoder.encode(key), max, min, offset,
                 count);
     }
@@ -466,8 +466,8 @@ public class Client extends BinaryClient implements Commands {
         zremrangeByRank(SafeEncoder.encode(key), start, end);
     }
 
-    public void zremrangeByScore(final String key, final double start,
-            final double end) {
+    public void zremrangeByScore(final String key, final long start,
+            final long end) {
         zremrangeByScore(SafeEncoder.encode(key), start, end);
     }
 

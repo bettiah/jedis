@@ -6,7 +6,7 @@ import redis.clients.util.SafeEncoder;
 
 public class Tuple implements Comparable<Tuple> {
     private byte[] element;
-    private Double score;
+    private long score;
 
     public int hashCode() {
         final int prime = 31;
@@ -18,7 +18,7 @@ public class Tuple implements Comparable<Tuple> {
             }
         }
         long temp;
-        temp = Double.doubleToLongBits(score);
+        temp = score;
         result = prime * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
@@ -46,13 +46,13 @@ public class Tuple implements Comparable<Tuple> {
             return this.score < other.getScore() ? -1 : 1;
     }
 
-    public Tuple(String element, Double score) {
+    public Tuple(String element, long score) {
         super();
         this.element = SafeEncoder.encode(element);
         this.score = score;
     }
 
-    public Tuple(byte[] element, Double score) {
+    public Tuple(byte[] element, long score) {
         super();
         this.element = element;
         this.score = score;
@@ -70,7 +70,7 @@ public class Tuple implements Comparable<Tuple> {
         return element;
     }
 
-    public double getScore() {
+    public long getScore() {
         return score;
     }
 

@@ -435,7 +435,7 @@ public class BinaryTransaction extends Queable {
         return getResponse(BuilderFactory.STRING);
     }
 
-    public Response<Long> zadd(byte[] key, double score, byte[] member) {
+    public Response<Long> zadd(byte[] key, long score, byte[] member) {
         client.zadd(key, score, member);
         return getResponse(BuilderFactory.LONG);
     }
@@ -445,14 +445,14 @@ public class BinaryTransaction extends Queable {
         return getResponse(BuilderFactory.LONG);
     }
 
-    public Response<Long> zcount(byte[] key, double min, double max) {
+    public Response<Long> zcount(byte[] key, long min, long max) {
         client.zcount(key, min, max);
         return getResponse(BuilderFactory.LONG);
     }
 
-    public Response<Double> zincrby(byte[] key, double score, byte[] member) {
+    public Response<Long> zincrby(byte[] key, long score, byte[] member) {
         client.zincrby(key, score, member);
-        return getResponse(BuilderFactory.DOUBLE);
+        return getResponse(BuilderFactory.LONG);
     }
 
     public Response<Long> zinterstore(byte[] dstkey, byte[]... sets) {
@@ -471,8 +471,8 @@ public class BinaryTransaction extends Queable {
         return getResponse(BuilderFactory.BYTE_ARRAY_ZSET);
     }
 
-    public Response<Set<byte[]>> zrangeByScore(byte[] key, double min,
-            double max) {
+    public Response<Set<byte[]>> zrangeByScore(byte[] key, long min,
+            long max) {
         client.zrangeByScore(key, min, max);
         return getResponse(BuilderFactory.BYTE_ARRAY_ZSET);
     }
@@ -483,20 +483,20 @@ public class BinaryTransaction extends Queable {
         return getResponse(BuilderFactory.BYTE_ARRAY_ZSET);
     }
 
-    public Response<Set<byte[]>> zrangeByScore(byte[] key, double min,
-            double max, int offset, int count) {
+    public Response<Set<byte[]>> zrangeByScore(byte[] key, long min,
+            long max, int offset, int count) {
         client.zrangeByScore(key, min, max, offset, count);
         return getResponse(BuilderFactory.BYTE_ARRAY_ZSET);
     }
 
-    public Response<Set<Tuple>> zrangeByScoreWithScores(byte[] key, double min,
-            double max) {
+    public Response<Set<Tuple>> zrangeByScoreWithScores(byte[] key, long min,
+            long max) {
         client.zrangeByScoreWithScores(key, min, max);
         return getResponse(BuilderFactory.TUPLE_ZSET_BINARY);
     }
 
-    public Response<Set<Tuple>> zrangeByScoreWithScores(byte[] key, double min,
-            double max, int offset, int count) {
+    public Response<Set<Tuple>> zrangeByScoreWithScores(byte[] key, long min,
+            long max, int offset, int count) {
         client.zrangeByScoreWithScores(key, min, max, offset, count);
         return getResponse(BuilderFactory.TUPLE_ZSET_BINARY);
     }
@@ -521,7 +521,7 @@ public class BinaryTransaction extends Queable {
         return getResponse(BuilderFactory.LONG);
     }
 
-    public Response<Long> zremrangeByScore(byte[] key, double start, double end) {
+    public Response<Long> zremrangeByScore(byte[] key, long start, long end) {
         client.zremrangeByScore(key, start, end);
         return getResponse(BuilderFactory.LONG);
     }
@@ -542,9 +542,9 @@ public class BinaryTransaction extends Queable {
         return getResponse(BuilderFactory.LONG);
     }
 
-    public Response<Double> zscore(byte[] key, byte[] member) {
+    public Response<Long> zscore(byte[] key, byte[] member) {
         client.zscore(key, member);
-        return getResponse(BuilderFactory.DOUBLE);
+        return getResponse(BuilderFactory.LONG);
     }
 
     public Response<Long> zunionstore(byte[] dstkey, byte[]... sets) {

@@ -613,7 +613,7 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * <p>
      * Time complexity: O(1). The amortized time complexity is O(1) assuming the
      * appended value is small and the already present value is of any size,
-     * since the dynamic string library used by Redis will double the free space
+     * since the dynamic string library used by Redis will long the free space
      * available on every reallocation.
      * 
      * @param key
@@ -1429,7 +1429,7 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * as sole member is crated. If the key exists but does not hold a sorted
      * set value an error is returned.
      * <p>
-     * The score value can be the string representation of a double precision
+     * The score value can be the string representation of a long precision
      * floating point number.
      * <p>
      * Time complexity O(log(N)) with N being the number of elements in the
@@ -1442,7 +1442,7 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      *         the element was already a member of the sorted set and the score
      *         was updated
      */
-    public Long zadd(final String key, final double score, final String member) {
+    public Long zadd(final String key, final long score, final String member) {
         checkIsInMulti();
         client.zadd(key, score, member);
         return client.getIntegerReply();
@@ -1485,7 +1485,7 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * specified member as sole member is crated. If the key exists but does not
      * hold a sorted set value an error is returned.
      * <p>
-     * The score value can be the string representation of a double precision
+     * The score value can be the string representation of a long precision
      * floating point number. It's possible to provide a negative value to
      * perform a decrement.
      * <p>
@@ -1500,12 +1500,12 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * @param member
      * @return The new score
      */
-    public Double zincrby(final String key, final double score,
+    public long zincrby(final String key, final long score,
             final String member) {
         checkIsInMulti();
         client.zincrby(key, score, member);
         String newscore = client.getBulkReply();
-        return Double.valueOf(newscore);
+        return Long.valueOf(newscore);
     }
 
     /**
@@ -1606,15 +1606,16 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * <p>
      * <b>Time complexity:</b> O(1)
      * 
+     *
      * @param key
      * @param member
      * @return the score
      */
-    public Double zscore(final String key, final String member) {
+    public Long zscore(final String key, final String member) {
         checkIsInMulti();
         client.zscore(key, member);
         final String score = client.getBulkReply();
-        return (score != null ? new Double(score) : null);
+        return (score != null ? new Long(score) : null);
     }
 
     public String watch(final String... keys) {
@@ -1626,7 +1627,7 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * Sort a Set or a List.
      * <p>
      * Sort the elements contained in the List, Set, or Sorted Set value at key.
-     * By default sorting is numeric with elements being compared as double
+     * By default sorting is numeric with elements being compared as long
      * precision floating point numbers. This is the simplest form of SORT.
      * 
      * @see #sort(String, String)
@@ -1840,7 +1841,7 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * <p>
      * Sort the elements contained in the List, Set, or Sorted Set value at key
      * and store the result at dstkey. By default sorting is numeric with
-     * elements being compared as double precision floating point numbers. This
+     * elements being compared as long precision floating point numbers. This
      * is the simplest form of SORT.
      * 
      * @see #sort(String)
@@ -1989,7 +1990,7 @@ public class Jedis extends BinaryJedis implements JedisCommands {
         client.rollbackTimeout();
     }
 
-    public Long zcount(final String key, final double min, final double max) {
+    public Long zcount(final String key, final long min, final long max) {
         checkIsInMulti();
         client.zcount(key, min, max);
         return client.getIntegerReply();
@@ -2004,13 +2005,13 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * does not involve further computation).
      * <p>
      * Using the optional
-     * {@link #zrangeByScore(String, double, double, int, int) LIMIT} it's
+     * {@link #zrangeByScore(String, long, long, int, int) LIMIT} it's
      * possible to get only a range of the matching elements in an SQL-alike
      * way. Note that if offset is large the commands needs to traverse the list
      * for offset elements and this adds up to the O(M) figure.
      * <p>
-     * The {@link #zcount(String, double, double) ZCOUNT} command is similar to
-     * {@link #zrangeByScore(String, double, double) ZRANGEBYSCORE} but instead
+     * The {@link #zcount(String, long, long) ZCOUNT} command is similar to
+     * {@link #zrangeByScore(String, long, long) ZRANGEBYSCORE} but instead
      * of returning the actual elements in the specified interval, it just
      * returns the number of matching elements.
      * <p>
@@ -2039,12 +2040,12 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * (for instance you always ask for the first ten elements with LIMIT) you
      * can consider it O(log(N))
      * 
-     * @see #zrangeByScore(String, double, double)
-     * @see #zrangeByScore(String, double, double, int, int)
-     * @see #zrangeByScoreWithScores(String, double, double)
+     * @see #zrangeByScore(String, long, long)
+     * @see #zrangeByScore(String, long, long, int, int)
+     * @see #zrangeByScoreWithScores(String, long, long)
      * @see #zrangeByScoreWithScores(String, String, String)
-     * @see #zrangeByScoreWithScores(String, double, double, int, int)
-     * @see #zcount(String, double, double)
+     * @see #zrangeByScoreWithScores(String, long, long, int, int)
+     * @see #zcount(String, long, long)
      * 
      * @param key
      * @param min
@@ -2052,8 +2053,8 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * @return Multi bulk reply specifically a list of elements in the specified
      *         score range.
      */
-    public Set<String> zrangeByScore(final String key, final double min,
-            final double max) {
+    public Set<String> zrangeByScore(final String key, final long min,
+            final long max) {
         checkIsInMulti();
         client.zrangeByScore(key, min, max);
         return new LinkedHashSet<String>(client.getMultiBulkReply());
@@ -2075,13 +2076,13 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * does not involve further computation).
      * <p>
      * Using the optional
-     * {@link #zrangeByScore(String, double, double, int, int) LIMIT} it's
+     * {@link #zrangeByScore(String, long, long, int, int) LIMIT} it's
      * possible to get only a range of the matching elements in an SQL-alike
      * way. Note that if offset is large the commands needs to traverse the list
      * for offset elements and this adds up to the O(M) figure.
      * <p>
-     * The {@link #zcount(String, double, double) ZCOUNT} command is similar to
-     * {@link #zrangeByScore(String, double, double) ZRANGEBYSCORE} but instead
+     * The {@link #zcount(String, long, long) ZCOUNT} command is similar to
+     * {@link #zrangeByScore(String, long, long) ZRANGEBYSCORE} but instead
      * of returning the actual elements in the specified interval, it just
      * returns the number of matching elements.
      * <p>
@@ -2110,11 +2111,11 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * (for instance you always ask for the first ten elements with LIMIT) you
      * can consider it O(log(N))
      * 
-     * @see #zrangeByScore(String, double, double)
-     * @see #zrangeByScore(String, double, double, int, int)
-     * @see #zrangeByScoreWithScores(String, double, double)
-     * @see #zrangeByScoreWithScores(String, double, double, int, int)
-     * @see #zcount(String, double, double)
+     * @see #zrangeByScore(String, long, long)
+     * @see #zrangeByScore(String, long, long, int, int)
+     * @see #zrangeByScoreWithScores(String, long, long)
+     * @see #zrangeByScoreWithScores(String, long, long, int, int)
+     * @see #zcount(String, long, long)
      * 
      * @param key
      * @param min
@@ -2122,8 +2123,8 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * @return Multi bulk reply specifically a list of elements in the specified
      *         score range.
      */
-    public Set<String> zrangeByScore(final String key, final double min,
-            final double max, final int offset, final int count) {
+    public Set<String> zrangeByScore(final String key, final long min,
+            final long max, final int offset, final int count) {
         checkIsInMulti();
         client.zrangeByScore(key, min, max, offset, count);
         return new LinkedHashSet<String>(client.getMultiBulkReply());
@@ -2138,13 +2139,13 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * does not involve further computation).
      * <p>
      * Using the optional
-     * {@link #zrangeByScore(String, double, double, int, int) LIMIT} it's
+     * {@link #zrangeByScore(String, long, long, int, int) LIMIT} it's
      * possible to get only a range of the matching elements in an SQL-alike
      * way. Note that if offset is large the commands needs to traverse the list
      * for offset elements and this adds up to the O(M) figure.
      * <p>
-     * The {@link #zcount(String, double, double) ZCOUNT} command is similar to
-     * {@link #zrangeByScore(String, double, double) ZRANGEBYSCORE} but instead
+     * The {@link #zcount(String, long, long) ZCOUNT} command is similar to
+     * {@link #zrangeByScore(String, long, long) ZRANGEBYSCORE} but instead
      * of returning the actual elements in the specified interval, it just
      * returns the number of matching elements.
      * <p>
@@ -2173,11 +2174,11 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * (for instance you always ask for the first ten elements with LIMIT) you
      * can consider it O(log(N))
      * 
-     * @see #zrangeByScore(String, double, double)
-     * @see #zrangeByScore(String, double, double, int, int)
-     * @see #zrangeByScoreWithScores(String, double, double)
-     * @see #zrangeByScoreWithScores(String, double, double, int, int)
-     * @see #zcount(String, double, double)
+     * @see #zrangeByScore(String, long, long)
+     * @see #zrangeByScore(String, long, long, int, int)
+     * @see #zrangeByScoreWithScores(String, long, long)
+     * @see #zrangeByScoreWithScores(String, long, long, int, int)
+     * @see #zcount(String, long, long)
      * 
      * @param key
      * @param min
@@ -2186,7 +2187,7 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      *         score range.
      */
     public Set<Tuple> zrangeByScoreWithScores(final String key,
-            final double min, final double max) {
+            final long min, final long max) {
         checkIsInMulti();
         client.zrangeByScoreWithScores(key, min, max);
         Set<Tuple> set = getTupledSet();
@@ -2202,13 +2203,13 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * does not involve further computation).
      * <p>
      * Using the optional
-     * {@link #zrangeByScore(String, double, double, int, int) LIMIT} it's
+     * {@link #zrangeByScore(String, long, long, int, int) LIMIT} it's
      * possible to get only a range of the matching elements in an SQL-alike
      * way. Note that if offset is large the commands needs to traverse the list
      * for offset elements and this adds up to the O(M) figure.
      * <p>
-     * The {@link #zcount(String, double, double) ZCOUNT} command is similar to
-     * {@link #zrangeByScore(String, double, double) ZRANGEBYSCORE} but instead
+     * The {@link #zcount(String, long, long) ZCOUNT} command is similar to
+     * {@link #zrangeByScore(String, long, long) ZRANGEBYSCORE} but instead
      * of returning the actual elements in the specified interval, it just
      * returns the number of matching elements.
      * <p>
@@ -2237,11 +2238,11 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * (for instance you always ask for the first ten elements with LIMIT) you
      * can consider it O(log(N))
      * 
-     * @see #zrangeByScore(String, double, double)
-     * @see #zrangeByScore(String, double, double, int, int)
-     * @see #zrangeByScoreWithScores(String, double, double)
-     * @see #zrangeByScoreWithScores(String, double, double, int, int)
-     * @see #zcount(String, double, double)
+     * @see #zrangeByScore(String, long, long)
+     * @see #zrangeByScore(String, long, long, int, int)
+     * @see #zrangeByScoreWithScores(String, long, long)
+     * @see #zrangeByScoreWithScores(String, long, long, int, int)
+     * @see #zcount(String, long, long)
      * 
      * @param key
      * @param min
@@ -2250,7 +2251,7 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      *         score range.
      */
     public Set<Tuple> zrangeByScoreWithScores(final String key,
-            final double min, final double max, final int offset,
+            final long min, final long max, final int offset,
             final int count) {
         checkIsInMulti();
         client.zrangeByScoreWithScores(key, min, max, offset, count);
@@ -2265,14 +2266,14 @@ public class Jedis extends BinaryJedis implements JedisCommands {
         Iterator<String> iterator = membersWithScores.iterator();
         while (iterator.hasNext()) {
             set
-                    .add(new Tuple(iterator.next(), Double.valueOf(iterator
+                    .add(new Tuple(iterator.next(), Long.valueOf(iterator
                             .next())));
         }
         return set;
     }
 
-    public Set<String> zrevrangeByScore(final String key, final double max,
-            final double min) {
+    public Set<String> zrevrangeByScore(final String key, final long max,
+            final long min) {
         checkIsInMulti();
         client.zrevrangeByScore(key, max, min);
         return new LinkedHashSet<String>(client.getMultiBulkReply());
@@ -2285,15 +2286,15 @@ public class Jedis extends BinaryJedis implements JedisCommands {
         return new LinkedHashSet<String>(client.getMultiBulkReply());
     }
 
-    public Set<String> zrevrangeByScore(final String key, final double max,
-            final double min, final int offset, final int count) {
+    public Set<String> zrevrangeByScore(final String key, final long max,
+            final long min, final int offset, final int count) {
         checkIsInMulti();
         client.zrevrangeByScore(key, max, min, offset, count);
         return new LinkedHashSet<String>(client.getMultiBulkReply());
     }
 
     public Set<Tuple> zrevrangeByScoreWithScores(final String key,
-            final double max, final double min) {
+            final long max, final long min) {
         checkIsInMulti();
         client.zrevrangeByScoreWithScores(key, max, min);
         Set<Tuple> set = getTupledSet();
@@ -2301,7 +2302,7 @@ public class Jedis extends BinaryJedis implements JedisCommands {
     }
 
     public Set<Tuple> zrevrangeByScoreWithScores(final String key,
-            final double max, final double min, final int offset,
+            final long max, final long min, final int offset,
             final int count) {
         checkIsInMulti();
         client.zrevrangeByScoreWithScores(key, max, min, offset, count);
@@ -2342,8 +2343,8 @@ public class Jedis extends BinaryJedis implements JedisCommands {
      * @param end
      * @return Integer reply, specifically the number of elements removed.
      */
-    public Long zremrangeByScore(final String key, final double start,
-            final double end) {
+    public Long zremrangeByScore(final String key, final long start,
+            final long end) {
         checkIsInMulti();
         client.zremrangeByScore(key, start, end);
         return client.getIntegerReply();

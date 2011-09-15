@@ -106,13 +106,13 @@ public interface JedisCommands {
 
     String srandmember(String key);
 
-    Long zadd(String key, double score, String member);
+    Long zadd(String key, long score, String member);
 
     Set<String> zrange(String key, int start, int end);
 
     Long zrem(String key, String member);
 
-    Double zincrby(String key, double score, String member);
+    long zincrby(String key, long score, String member);
 
     Long zrank(String key, String member);
 
@@ -126,37 +126,37 @@ public interface JedisCommands {
 
     Long zcard(String key);
 
-    Double zscore(String key, String member);
+    Long zscore(String key, String member);
 
     List<String> sort(String key);
 
     List<String> sort(String key, SortingParams sortingParameters);
 
-    Long zcount(String key, double min, double max);
+    Long zcount(String key, long min, long max);
 
-    Set<String> zrangeByScore(String key, double min, double max);
+    Set<String> zrangeByScore(String key, long min, long max);
 
-    Set<String> zrevrangeByScore(String key, double max, double min);
+    Set<String> zrevrangeByScore(String key, long max, long min);
 
-    Set<String> zrangeByScore(String key, double min, double max, int offset,
+    Set<String> zrangeByScore(String key, long min, long max, int offset,
             int count);
 
-    Set<String> zrevrangeByScore(String key, double max, double min,
+    Set<String> zrevrangeByScore(String key, long max, long min,
             int offset, int count);
 
-    Set<Tuple> zrangeByScoreWithScores(String key, double min, double max);
+    Set<Tuple> zrangeByScoreWithScores(String key, long min, long max);
 
-    Set<Tuple> zrevrangeByScoreWithScores(String key, double max, double min);
+    Set<Tuple> zrevrangeByScoreWithScores(String key, long max, long min);
 
-    Set<Tuple> zrangeByScoreWithScores(String key, double min, double max,
+    Set<Tuple> zrangeByScoreWithScores(String key, long min, long max,
             int offset, int count);
 
-    Set<Tuple> zrevrangeByScoreWithScores(String key, double max, double min,
+    Set<Tuple> zrevrangeByScoreWithScores(String key, long max, long min,
             int offset, int count);
 
     Long zremrangeByRank(String key, int start, int end);
 
-    Long zremrangeByScore(String key, double start, double end);
+    Long zremrangeByScore(String key, long start, long end);
 
     Long linsert(String key, Client.LIST_POSITION where, String pivot,
             String value);

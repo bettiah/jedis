@@ -137,13 +137,13 @@ public interface Commands {
 
     public void srandmember(final String key);
 
-    public void zadd(final String key, final double score, final String member);
+    public void zadd(final String key, final long score, final String member);
 
     public void zrange(final String key, final int start, final int end);
 
     public void zrem(final String key, final String member);
 
-    public void zincrby(final String key, final double score,
+    public void zincrby(final String key, final long score,
             final String member);
 
     public void zrank(final String key, final String member);
@@ -180,42 +180,42 @@ public interface Commands {
     public void brpoplpush(final String source, final String destination,
             final int timeout);
 
-    public void zcount(final String key, final double min, final double max);
+    public void zcount(final String key, final long min, final long max);
 
-    public void zrangeByScore(final String key, final double min,
-            final double max);
+    public void zrangeByScore(final String key, final long min,
+            final long max);
 
     public void zrangeByScore(final String key, final String min,
             final String max);
 
-    public void zrangeByScore(final String key, final double min,
-            final double max, final int offset, int count);
+    public void zrangeByScore(final String key, final long min,
+            final long max, final int offset, int count);
 
-    public void zrangeByScoreWithScores(final String key, final double min,
-            final double max);
+    public void zrangeByScoreWithScores(final String key, final long min,
+            final long max);
 
-    public void zrangeByScoreWithScores(final String key, final double min,
-            final double max, final int offset, final int count);
+    public void zrangeByScoreWithScores(final String key, final long min,
+            final long max, final int offset, final int count);
 
-    public void zrevrangeByScore(final String key, final double max,
-            final double min);
+    public void zrevrangeByScore(final String key, final long max,
+            final long min);
 
     public void zrevrangeByScore(final String key, final String max,
             final String min);
 
-    public void zrevrangeByScore(final String key, final double max,
-            final double min, final int offset, int count);
+    public void zrevrangeByScore(final String key, final long max,
+            final long min, final int offset, int count);
 
-    public void zrevrangeByScoreWithScores(final String key, final double max,
-            final double min);
+    public void zrevrangeByScoreWithScores(final String key, final long max,
+            final long min);
 
-    public void zrevrangeByScoreWithScores(final String key, final double max,
-            final double min, final int offset, final int count);
+    public void zrevrangeByScoreWithScores(final String key, final long max,
+            final long min, final int offset, final int count);
 
     public void zremrangeByRank(final String key, final int start, final int end);
 
-    public void zremrangeByScore(final String key, final double start,
-            final double end);
+    public void zremrangeByScore(final String key, final long start,
+            final long end);
 
     public void zunionstore(final String dstkey, final String... sets);
 

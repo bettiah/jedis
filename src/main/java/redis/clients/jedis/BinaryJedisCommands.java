@@ -101,13 +101,13 @@ public interface BinaryJedisCommands {
 
     byte[] srandmember(byte[] key);
 
-    Long zadd(byte[] key, double score, byte[] member);
+    Long zadd(byte[] key, long score, byte[] member);
 
     Set<byte[]> zrange(byte[] key, int start, int end);
 
     Long zrem(byte[] key, byte[] member);
 
-    Double zincrby(byte[] key, double score, byte[] member);
+    long zincrby(byte[] key, long score, byte[] member);
 
     Long zrank(byte[] key, byte[] member);
 
@@ -121,37 +121,37 @@ public interface BinaryJedisCommands {
 
     Long zcard(byte[] key);
 
-    Double zscore(byte[] key, byte[] member);
+    Long zscore(byte[] key, byte[] member);
 
     List<byte[]> sort(byte[] key);
 
     List<byte[]> sort(byte[] key, SortingParams sortingParameters);
 
-    Long zcount(byte[] key, double min, double max);
+    Long zcount(byte[] key, long min, long max);
 
-    Set<byte[]> zrangeByScore(byte[] key, double min, double max);
+    Set<byte[]> zrangeByScore(byte[] key, long min, long max);
 
-    Set<byte[]> zrangeByScore(byte[] key, double min, double max, int offset,
+    Set<byte[]> zrangeByScore(byte[] key, long min, long max, int offset,
             int count);
 
-    Set<Tuple> zrangeByScoreWithScores(byte[] key, double min, double max);
+    Set<Tuple> zrangeByScoreWithScores(byte[] key, long min, long max);
 
-    Set<Tuple> zrangeByScoreWithScores(byte[] key, double min, double max,
+    Set<Tuple> zrangeByScoreWithScores(byte[] key, long min, long max,
             int offset, int count);
 
-    Set<byte[]> zrevrangeByScore(byte[] key, double max, double min);
+    Set<byte[]> zrevrangeByScore(byte[] key, long max, long min);
 
-    Set<byte[]> zrevrangeByScore(byte[] key, double max, double min, int offset,
+    Set<byte[]> zrevrangeByScore(byte[] key, long max, long min, int offset,
             int count);
 
-    Set<Tuple> zrevrangeByScoreWithScores(byte[] key, double max, double min);
+    Set<Tuple> zrevrangeByScoreWithScores(byte[] key, long max, long min);
 
-    Set<Tuple> zrevrangeByScoreWithScores(byte[] key, double max, double min,
+    Set<Tuple> zrevrangeByScoreWithScores(byte[] key, long max, long min,
             int offset, int count);
 
     Long zremrangeByRank(byte[] key, int start, int end);
 
-    Long zremrangeByScore(byte[] key, double start, double end);
+    Long zremrangeByScore(byte[] key, long start, long end);
 
     Long linsert(byte[] key, LIST_POSITION where, byte[] pivot, byte[] value);
 }
