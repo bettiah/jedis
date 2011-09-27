@@ -4,8 +4,8 @@
   <artifactId>jedis</artifactId>
   <versioning>
     <versions>
-      <version>2.0.1-SNAPSHOT</version>
+      <version>2.0.1.AK-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20110915154307</lastUpdated>
+    <lastUpdated>20110927162156</lastUpdated>
   </versioning>
 </metadata>
